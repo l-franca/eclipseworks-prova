@@ -1,0 +1,28 @@
+version: "3.5"
+services:
+  db:
+    container_name: eclipseworks_db
+    image: postgres:16.1
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=eclipseworks
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../db:/var/lib/postgresql/data
+
+  api:
+    container_name: eclipseworks_app
+    image: eclipse-teste:0.1a
+    build: 
+        dockerfile: Dockerfile
+        context: .
+    depends_on:
+      - db
+    environment:
+      - DB_CONNECTION_STRING=Host=eclipseworks_db;Username=admin;Password=123;Database=eclipseworks;
+    ports:
+      - "8081:80"
+    restart: always
+  
