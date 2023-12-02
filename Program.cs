@@ -9,11 +9,18 @@ var db = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? config.Ge
 var options = new DbContextOptionsBuilder<EclipseContext>();
 
 services.AddDbContextPool<EclipseContext>(opt => opt.UseNpgsql(db).EnableDetailedErrors());
+services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+{
+    builder.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+}));
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
