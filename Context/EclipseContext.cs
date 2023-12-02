@@ -1,4 +1,5 @@
-﻿using eclipseworks_teste.EntityConfigs;
+﻿using eclipseworks_teste.Entities;
+using eclipseworks_teste.EntityConfigs;
 using Microsoft.EntityFrameworkCore;
 
 namespace eclipseworks_teste.Context
@@ -18,6 +19,10 @@ namespace eclipseworks_teste.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioConfig());
+            modelBuilder.ApplyConfiguration(new HistoricoTarefaConfig());
+            modelBuilder.ApplyConfiguration(new TarefaConfig());
+            modelBuilder.ApplyConfiguration(new ProjetoConfig());
+
             base.OnModelCreating(modelBuilder);
         }
     }

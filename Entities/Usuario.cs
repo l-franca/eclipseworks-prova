@@ -4,7 +4,16 @@
     {
         public long CodUsuario { get; set; }
         public string Nome { get; set; }
-        public string Cargo { get; set; }
+        public CargoUsuario Cargo { get; set; }
 
+        public virtual IList<Projeto> Projeto { get; set; } = new List<Projeto>();
+        public virtual IList<Tarefa> Tarefas { get; set; } = new List<Tarefa>();
+
+
+    }
+
+    public enum CargoUsuario { 
+        Padrao,
+        Gerente
     }
 }
