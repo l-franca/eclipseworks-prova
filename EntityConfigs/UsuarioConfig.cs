@@ -12,6 +12,9 @@ namespace eclipseworks_teste.EntityConfigs
             builder.HasMany(x => x.Projeto)
                 .WithOne(x => x.Usuario)
                 .HasForeignKey(x => x.CodProjeto);
+            builder.HasMany(x => x.HistoricoTarefas)
+                .WithOne(x => x.Usuario)
+                .HasForeignKey(x => x.CodHistorico);
             builder.Property(x => x.Nome)
                 .IsRequired()
                 .HasMaxLength(256);

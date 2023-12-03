@@ -14,7 +14,8 @@ namespace eclipseworks_teste.EntityConfigs
                 .HasForeignKey(x => x.CodProjeto);
             builder.HasMany(x=>x.HistoricoTarefa)
                 .WithOne(x=>x.Tarefa)
-                .HasForeignKey(x=>x.CodHistorico);
+                .HasForeignKey(x=>x.CodTarefa)
+                .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(x => x.Usuario)
                 .WithMany(x => x.Tarefas)
                 .HasForeignKey(x => x.CodUsuario);

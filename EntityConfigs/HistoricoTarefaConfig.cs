@@ -11,7 +11,10 @@ namespace eclipseworks_teste.EntityConfigs
             builder.HasKey(x => x.CodHistorico);
             builder.HasOne(x => x.Tarefa)
                 .WithMany(x => x.HistoricoTarefa)
-                .HasForeignKey(x => x.CodHistorico);
+                .HasForeignKey(x => x.CodTarefa);
+            builder.HasOne(x => x.Usuario)
+                .WithMany(x => x.HistoricoTarefas)
+                .HasForeignKey(x => x.CodUsuario);
             builder.Property(x => x.Titulo)
                 .HasMaxLength(255);
             builder.Property(x => x.DataModificacao)

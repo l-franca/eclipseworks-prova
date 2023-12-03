@@ -10,7 +10,6 @@
         public long CodUsuario { get; set; }
         public DateTime DataVencimento { get; set; }
         public PrioridadeTarefa Prioridade { get; set; }
-
         public virtual Projeto Projeto { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual IList<HistoricoTarefa> HistoricoTarefa { get; set; } = new List<HistoricoTarefa>();

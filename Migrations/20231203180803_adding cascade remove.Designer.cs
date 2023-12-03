@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using eclipseworks_teste.Context;
@@ -11,9 +12,11 @@ using eclipseworks_teste.Context;
 namespace eclipseworksteste.Migrations
 {
     [DbContext(typeof(EclipseContext))]
-    partial class EclipseContextModelSnapshot : ModelSnapshot
+    [Migration("20231203180803_adding cascade remove")]
+    partial class addingcascaderemove
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,10 +28,7 @@ namespace eclipseworksteste.Migrations
             modelBuilder.Entity("eclipseworks_teste.Entities.HistoricoTarefa", b =>
                 {
                     b.Property<long>("CodHistorico")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("CodHistorico"));
 
                     b.Property<long>("CodTarefa")
                         .HasColumnType("bigint");
@@ -59,8 +59,6 @@ namespace eclipseworksteste.Migrations
                         .HasColumnType("character varying(255)");
 
                     b.HasKey("CodHistorico");
-
-                    b.HasIndex("CodTarefa");
 
                     b.HasIndex("CodUsuario");
 
@@ -163,8 +161,8 @@ namespace eclipseworksteste.Migrations
                 {
                     b.HasOne("eclipseworks_teste.Entities.Tarefa", "Tarefa")
                         .WithMany("HistoricoTarefa")
-                        .HasForeignKey("CodTarefa")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CodHistorico")
+                        .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
                     b.HasOne("eclipseworks_teste.Entities.Usuario", "Usuario")

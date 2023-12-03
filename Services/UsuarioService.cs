@@ -12,5 +12,7 @@ namespace eclipseworks_teste.Services
         }
 
         public IList<Usuario> ObterTodos() { return _repository.GetAll(); }
+
+        public Usuario AddUsuario(Usuario usuario) { _repository.Save(usuario); return usuario; }
     }
 }

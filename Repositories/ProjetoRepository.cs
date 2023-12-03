@@ -10,5 +10,15 @@ namespace eclipseworks_teste.Repositories
         {
             
         }
+
+        public IList<Projeto> GetByUserId(long userId) {
+            return Db.Set<Projeto>().Where(x => x.CodUsuario == userId).OrderByDescending(x=>x.CodProjeto).ToList();
+        }
+
+        public IList<Projeto> GetAllProjetos()
+        {
+            return Db.Set<Projeto>().OrderByDescending(x => x.CodProjeto).ToList();
+        }
+
     }
 }

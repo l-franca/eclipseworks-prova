@@ -10,5 +10,9 @@ namespace eclipseworks_teste.Repositories
         {
             
         }
+
+        public int CountPerProject(long projectId) {
+            return Db.Set<Tarefa>().Count(x => x.CodProjeto == projectId);
+        }
     }
 }

@@ -4,7 +4,9 @@
     {
         public long CodHistorico { get; set; }
         public long CodTarefa { get; set; }
+        public long CodUsuario { get; set; }
         public virtual Tarefa Tarefa { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public string? Titulo { get; set; }
         public string? Descricao { get; set; }
         public string? Comentario { get; set; }

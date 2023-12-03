@@ -11,6 +11,8 @@ namespace eclipseworks_teste.Services
             _repository = new ProjetoRepository(context);
         }
 
-        public IList<Projeto> ObterTodos() { return _repository.GetAll(); }
+        public IList<Projeto> GetAllProjetos() { return _repository.GetAllProjetos(); }
+        public IList<Projeto> GetByUserId(long userId) { return _repository.GetByUserId(userId); }
+        public Projeto AddProjeto(Projeto projeto) { _repository.Save(projeto); return projeto; }
     }
 }
