@@ -10,14 +10,25 @@ namespace eclipseworks_teste.Services
     public class TarefaService
     {
         private readonly TarefaRepository _repository;
+        private readonly UsuarioRepository _usuarioRepository;
         private readonly HistoricoTarefaRepository _histRepository;
         public TarefaService(EclipseContext context) { 
 
             _repository = new TarefaRepository(context);
             _histRepository = new HistoricoTarefaRepository(context);
+            _usuarioRepository = new UsuarioRepository(context);
+            
         }
 
-        public IList<Tarefa> ObterTodos() { return _repository.GetAll(); }
+        public IList<Tarefa> GetAll() { return _repository.GetAll(); }
+        public IList<Tarefa> GetAllByProjectId(long codProjeto) { return _repository.GetAllByProject(codProjeto); }
+
+        public IList<Tarefa> GetTarefasPorUsuario30dias(long usuarioId) {
+            if (_usuarioRepository.CheckIfGerente(usuarioId)) {
+                return _repository.GetTarefasPorUsuario30dias(usuarioId);
+            }
+            return new List<Tarefa>();
+        }
 
         public void RemoveTarefa(long codTarefa) { _repository.RemoveById(codTarefa); }
 

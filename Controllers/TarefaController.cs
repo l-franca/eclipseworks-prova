@@ -19,9 +19,15 @@ namespace eclipseworks_teste.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Tarefa> GetTarefa()
+        public IList<Tarefa> GetTarefa()
         {
-            return _service.ObterTodos();
+            return _service.GetAll();
+        }
+
+        [HttpGet("{codProjeto:long}")]
+        public IList<Tarefa> GetAllByProjeto(long codProjeto)
+        {
+            return _service.GetAllByProjectId(codProjeto);
         }
 
         [HttpDelete("{codTarefa:long}")]
@@ -57,15 +63,13 @@ namespace eclipseworks_teste.Controllers
         }
 
         [HttpPost("{codTarefa:long}/{codUsuario:long}")]
-        public IActionResult AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario) {
-            
-
+        public IActionResult AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario) 
+        {
             if (ModelState.IsValid)
             {
                 _service.AddComentario(comentarioVM, codTarefa, codUsuario);
                 return Ok();
             }
-
             return BadRequest(ModelState);
         }
 
@@ -77,7 +81,6 @@ namespace eclipseworks_teste.Controllers
                 _service.EditTarefa(tarefaVM, codTarefa, codUsuario);
                 return Ok();
             }
-
             return BadRequest(ModelState);
         }
     }

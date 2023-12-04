@@ -10,5 +10,14 @@ namespace eclipseworks_teste.Repositories
         {
             
         }
+
+        public IList<HistoricoTarefa> GetAllComentarios(long tarefaId) { 
+            return Db.Set<HistoricoTarefa>().Where(x=>x.CodTarefa==tarefaId && x.StatusHistorico == StatusHistorico.Comentario).OrderByDescending(x=>x.DataModificacao).ToList();
+        }
+
+        public IList<HistoricoTarefa> GetAllUpdates(long tarefaId)
+        {
+            return Db.Set<HistoricoTarefa>().Where(x => x.CodTarefa == tarefaId && x.StatusHistorico != StatusHistorico.Comentario).OrderByDescending(x => x.DataModificacao).ToList();
+        }
     }
 }

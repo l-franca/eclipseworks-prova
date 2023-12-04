@@ -20,5 +20,9 @@ namespace eclipseworks_teste.Repositories
             return Db.Set<Projeto>().OrderByDescending(x => x.CodProjeto).ToList();
         }
 
+        public bool CanBeRemoved(long codProjeto) {
+            return !Db.Set<Tarefa>().Any(x => x.CodProjeto == codProjeto && x.Status != StatusTarefa.Concluida);
+        }
+
     }
 }

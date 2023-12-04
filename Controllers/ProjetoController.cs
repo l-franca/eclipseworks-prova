@@ -3,6 +3,7 @@ using eclipseworks_teste.Entities;
 using eclipseworks_teste.Services;
 using eclipseworks_teste.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace eclipseworks_teste.Controllers
 {
@@ -28,7 +29,19 @@ namespace eclipseworks_teste.Controllers
         {
             return _service.GetByUserId(codUsuario);
         }
-        
+
+        //TESTAR
+        [HttpDelete("{codProjeto:long}")]
+        public IActionResult RemoveProjeto(long codProjeto)
+        {
+            var validations = _service.RemoveProjeto(codProjeto); 
+            if (validations == ValidationResult.Success)
+            {
+                return Ok();
+            }
+            return BadRequest(validations);
+        }
+
         [HttpPost("{codUsuario:long}")]
         public IActionResult Save(ProjetoVM projetoVM, long codUsuario)
         {
@@ -43,10 +56,7 @@ namespace eclipseworks_teste.Controllers
                 });
                 return Ok(projeto);
             }
-
             return BadRequest(ModelState);
         }
-
-
     }
 }
