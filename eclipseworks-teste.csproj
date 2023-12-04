@@ -11,10 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="eclipseworks-xunit\**" />
-    <Content Remove="eclipseworks-xunit\**" />
-    <EmbeddedResource Remove="eclipseworks-xunit\**" />
-    <None Remove="eclipseworks-xunit\**" />
+    <Compile Remove="eclipseworks_xunit\**" />
+    <Content Remove="eclipseworks_xunit\**" />
+    <EmbeddedResource Remove="eclipseworks_xunit\**" />
+    <None Remove="eclipseworks_xunit\**" />
   </ItemGroup>
 
   <ItemGroup>

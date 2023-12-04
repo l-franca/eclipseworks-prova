@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eclipseworks-teste", "eclipseworks-teste.csproj", "{8196B62C-427B-4519-90A4-7DD4BCCC10B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eclipseworks-xunit", "eclipseworks-xunit\eclipseworks-xunit.csproj", "{B73E8DDA-1998-485B-A0F3-1F22A4E0BA8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eclipseworks_xunit", "eclipseworks_xunit\eclipseworks_xunit.csproj", "{87782D04-0590-471E-89F7-4284BB2F215D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{8196B62C-427B-4519-90A4-7DD4BCCC10B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8196B62C-427B-4519-90A4-7DD4BCCC10B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8196B62C-427B-4519-90A4-7DD4BCCC10B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B73E8DDA-1998-485B-A0F3-1F22A4E0BA8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B73E8DDA-1998-485B-A0F3-1F22A4E0BA8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B73E8DDA-1998-485B-A0F3-1F22A4E0BA8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B73E8DDA-1998-485B-A0F3-1F22A4E0BA8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87782D04-0590-471E-89F7-4284BB2F215D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87782D04-0590-471E-89F7-4284BB2F215D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87782D04-0590-471E-89F7-4284BB2F215D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87782D04-0590-471E-89F7-4284BB2F215D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
