@@ -5,18 +5,29 @@ using System.ComponentModel.DataAnnotations;
 
 namespace eclipseworks_teste.Services
 {
-    public class ProjetoService
+    public interface IProjetoService
     {
-        private readonly ProjetoRepository _repository;
-        public ProjetoService(EclipseContext context) { 
-            _repository = new ProjetoRepository(context);
+        Projeto AddProjeto(Projeto projeto);
+        IList<Projeto> GetAllProjetos();
+        IList<Projeto> GetByUserId(long userId);
+        ValidationResult RemoveProjeto(long codProjeto);
+    }
+
+    public class ProjetoService : IProjetoService
+    {
+        private readonly IProjetoRepository _repository;
+        public ProjetoService(IProjetoRepository projetoRepository)
+        {
+            _repository = projetoRepository;
         }
 
         public IList<Projeto> GetAllProjetos() { return _repository.GetAllProjetos(); }
         public IList<Projeto> GetByUserId(long userId) { return _repository.GetByUserId(userId); }
         public Projeto AddProjeto(Projeto projeto) { _repository.Save(projeto); return projeto; }
-        public ValidationResult RemoveProjeto (long codProjeto) {
-            if (_repository.CanBeRemoved(codProjeto)) {
+        public ValidationResult RemoveProjeto(long codProjeto)
+        {
+            if (_repository.CanBeRemoved(codProjeto))
+            {
                 _repository.RemoveById(codProjeto);
 
                 return ValidationResult.Success;

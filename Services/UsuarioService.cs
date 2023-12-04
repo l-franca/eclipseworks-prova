@@ -4,11 +4,19 @@ using eclipseworks_teste.Repositories;
 
 namespace eclipseworks_teste.Services
 {
-    public class UsuarioService
+    public interface IUsuarioService
     {
-        private readonly UsuarioRepository _repository;
-        public UsuarioService(EclipseContext context) { 
-            _repository = new UsuarioRepository(context);
+        Usuario AddUsuario(Usuario usuario);
+        bool CheckIfGerente(long usuarioId);
+        IList<Usuario> ObterTodos();
+    }
+
+    public class UsuarioService : IUsuarioService
+    {
+        private readonly IUsuarioRepository _repository;
+        public UsuarioService(IUsuarioRepository repository)
+        {
+            _repository = repository;
         }
 
         public IList<Usuario> ObterTodos() { return _repository.GetAll(); }

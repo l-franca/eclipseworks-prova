@@ -3,7 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eclipseworks_teste.Repositories
 {
-    public class BaseRepository<TEntity> : IDisposable where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
+    {
+        int Count(TEntity entEntity);
+        void Dispose();
+        IList<TEntity> GetAll();
+        IList<TEntity> GetAll(int amt);
+        TEntity GetById(long id);
+        TEntity GetById(string id);
+        void Remove(TEntity entEntity);
+        void RemoveById(long id);
+        void Save(TEntity entEntity);
+        void Update(TEntity entEntity);
+    }
+
+    public class BaseRepository<TEntity> : IDisposable, IBaseRepository<TEntity> where TEntity : class
     {
         protected readonly EclipseContext Db;
 

@@ -4,15 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eclipseworks_teste.Repositories
 {
-    public class HistoricoTarefaRepository : BaseRepository<HistoricoTarefa>
+    public interface IHistoricoTarefaRepository : IBaseRepository<HistoricoTarefa>
+    {
+        IList<HistoricoTarefa> GetAllComentarios(long tarefaId);
+        IList<HistoricoTarefa> GetAllUpdates(long tarefaId);
+    }
+
+    public class HistoricoTarefaRepository : BaseRepository<HistoricoTarefa>, IHistoricoTarefaRepository
     {
         public HistoricoTarefaRepository(EclipseContext ctx) : base(ctx)
         {
-            
+
         }
 
-        public IList<HistoricoTarefa> GetAllComentarios(long tarefaId) { 
-            return Db.Set<HistoricoTarefa>().Where(x=>x.CodTarefa==tarefaId && x.StatusHistorico == StatusHistorico.Comentario).OrderByDescending(x=>x.DataModificacao).ToList();
+        public IList<HistoricoTarefa> GetAllComentarios(long tarefaId)
+        {
+            return Db.Set<HistoricoTarefa>().Where(x => x.CodTarefa == tarefaId && x.StatusHistorico == StatusHistorico.Comentario).OrderByDescending(x => x.DataModificacao).ToList();
         }
 
         public IList<HistoricoTarefa> GetAllUpdates(long tarefaId)
@@ -20,4 +27,6 @@ namespace eclipseworks_teste.Repositories
             return Db.Set<HistoricoTarefa>().Where(x => x.CodTarefa == tarefaId && x.StatusHistorico != StatusHistorico.Comentario).OrderByDescending(x => x.DataModificacao).ToList();
         }
     }
+
+
 }

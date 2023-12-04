@@ -7,24 +7,38 @@ using System.ComponentModel.DataAnnotations;
 
 namespace eclipseworks_teste.Services
 {
-    public class TarefaService
+    public interface ITarefaService
     {
-        private readonly TarefaRepository _repository;
-        private readonly UsuarioRepository _usuarioRepository;
-        private readonly HistoricoTarefaRepository _histRepository;
-        public TarefaService(EclipseContext context) { 
+        void AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario);
+        ValidationResult AddTarefa(Tarefa tarefa);
+        Tarefa EditTarefa(TarefaVM tarefaVM, long codTarefa, long codUsuario);
+        IList<Tarefa> GetAll();
+        IList<Tarefa> GetAllByProjectId(long codProjeto);
+        IList<Tarefa> GetTarefasPorUsuario30dias(long usuarioId);
+        void RemoveTarefa(long codTarefa);
+    }
 
-            _repository = new TarefaRepository(context);
-            _histRepository = new HistoricoTarefaRepository(context);
-            _usuarioRepository = new UsuarioRepository(context);
-            
+    public class TarefaService : ITarefaService
+    {
+        private readonly ITarefaRepository _repository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IHistoricoTarefaRepository _histRepository;
+        public TarefaService(ITarefaRepository repository, IUsuarioRepository usuarioRepository, IHistoricoTarefaRepository historicoTarefaRepository)
+        {
+
+            _repository = repository;
+            _usuarioRepository = usuarioRepository;
+            _histRepository = historicoTarefaRepository;
+
         }
 
         public IList<Tarefa> GetAll() { return _repository.GetAll(); }
         public IList<Tarefa> GetAllByProjectId(long codProjeto) { return _repository.GetAllByProject(codProjeto); }
 
-        public IList<Tarefa> GetTarefasPorUsuario30dias(long usuarioId) {
-            if (_usuarioRepository.CheckIfGerente(usuarioId)) {
+        public IList<Tarefa> GetTarefasPorUsuario30dias(long usuarioId)
+        {
+            if (_usuarioRepository.CheckIfGerente(usuarioId))
+            {
                 return _repository.GetTarefasPorUsuario30dias(usuarioId);
             }
             return new List<Tarefa>();
@@ -32,9 +46,12 @@ namespace eclipseworks_teste.Services
 
         public void RemoveTarefa(long codTarefa) { _repository.RemoveById(codTarefa); }
 
-        public ValidationResult AddTarefa(Tarefa tarefa) {
-            if (_repository.CountPerProject(tarefa.CodProjeto) <= 20) {
-                if (tarefa.DataVencimento.Date >= DateTime.Now.Date) {
+        public ValidationResult AddTarefa(Tarefa tarefa)
+        {
+            if (_repository.CountPerProject(tarefa.CodProjeto) <= 20)
+            {
+                if (tarefa.DataVencimento.Date >= DateTime.Now.Date)
+                {
                     _repository.Save(tarefa);
                     return ValidationResult.Success;
                 }
@@ -44,7 +61,8 @@ namespace eclipseworks_teste.Services
             return new ValidationResult("Projeto já possui 20 tarefas!");
         }
 
-        public void AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario) {
+        public void AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario)
+        {
             _histRepository.Save(new HistoricoTarefa
             {
                 CodTarefa = codTarefa,

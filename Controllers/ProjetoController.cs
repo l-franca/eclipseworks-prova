@@ -11,11 +11,11 @@ namespace eclipseworks_teste.Controllers
     [Route("[controller]/[action]")]
     public class ProjetoController : ControllerBase
     {
-        private readonly ProjetoService _service;
+        private readonly IProjetoService _service;
 
-        public ProjetoController(EclipseContext context)
+        public ProjetoController(IProjetoService projetoService)
         {
-            _service = new ProjetoService(context);
+            _service = projetoService;
         }
 
         [HttpGet]

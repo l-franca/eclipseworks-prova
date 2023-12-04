@@ -11,11 +11,11 @@ namespace eclipseworks_teste.Controllers
     [Route("[controller]/[action]")]
     public class TarefaController : ControllerBase
     {
-        private readonly TarefaService _service;
+        private readonly ITarefaService _service;
 
-        public TarefaController(EclipseContext context)
+        public TarefaController(ITarefaService tarefaService)
         {
-            _service = new TarefaService(context);
+            _service = tarefaService;
         }
 
         [HttpGet]

@@ -10,12 +10,13 @@ namespace eclipseworks_teste.Controllers
     [Route("[controller]/[action]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly UsuarioService _service;
+        private readonly IUsuarioService _service;
 
-        public UsuarioController(EclipseContext context)
+        public UsuarioController(IUsuarioService usuarioService)
         {
-            _service = new UsuarioService(context);
+            _service = usuarioService;
         }
+
         [HttpGet]
         public IEnumerable<Usuario> GetUsuarios()
         {

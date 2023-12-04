@@ -5,14 +5,21 @@ using eclipseworks_teste.ViewModel;
 
 namespace eclipseworks_teste.Services
 {
-    public class HistoricoTarefaService
+    public interface IHistoricoTarefaService
     {
-        private readonly HistoricoTarefaRepository _repository;
-        private readonly UsuarioRepository _usuarioRepository;
-        public HistoricoTarefaService(EclipseContext context)
+        IList<HistoricoTarefa> GetAllComentarios(long usuarioId, long tarefaId);
+        IList<HistoricoTarefa> GetAllUpdates(long usuarioId, long tarefaId);
+        IList<HistoricoTarefa> ObterTodos();
+    }
+
+    public class HistoricoTarefaService : IHistoricoTarefaService
+    {
+        private readonly IHistoricoTarefaRepository _repository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        public HistoricoTarefaService(IHistoricoTarefaRepository historicoTarefaRepository, IUsuarioRepository usuarioRepository)
         {
-            _repository = new HistoricoTarefaRepository(context);
-            _usuarioRepository = new UsuarioRepository(context);
+            _repository = historicoTarefaRepository;
+            _usuarioRepository = usuarioRepository;
         }
 
         public IList<HistoricoTarefa> ObterTodos() { return _repository.GetAll(); }

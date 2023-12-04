@@ -9,17 +9,17 @@ namespace eclipseworks_teste.Controllers
     [Route("[controller]/[action]")]
     public class ReportsController : ControllerBase
     {
-        private readonly TarefaService _tarefaService;
-        private readonly UsuarioService _usuarioService;
-        private readonly ProjetoService _projetoService;
-        private readonly HistoricoTarefaService _histtarefaService;
+        private readonly ITarefaService _tarefaService;
+        private readonly IUsuarioService _usuarioService;
+        private readonly IProjetoService _projetoService;
+        private readonly IHistoricoTarefaService _histtarefaService;
 
-        public ReportsController(EclipseContext context)
+        public ReportsController(ITarefaService tarefaService, IUsuarioService usuarioService, IProjetoService projetoService, IHistoricoTarefaService historicoTarefaService)
         {
-            _tarefaService = new TarefaService(context);
-            _usuarioService = new UsuarioService(context);
-            _projetoService = new ProjetoService(context);
-            _histtarefaService = new HistoricoTarefaService(context);
+            _tarefaService = tarefaService;
+            _usuarioService = usuarioService;
+            _projetoService = projetoService;
+            _histtarefaService = historicoTarefaService;
         }
 
         [HttpGet("{usuarioId:long}")]

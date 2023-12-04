@@ -1,4 +1,6 @@
 using eclipseworks_teste.Context;
+using eclipseworks_teste.Repositories;
+using eclipseworks_teste.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +18,22 @@ services.AddCors(o => o.AddPolicy("AllowAll", builder =>
               .AllowAnyHeader();
 }));
 
-builder.Services.AddControllers();
+services.AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddTransient<EclipseContext, EclipseContext>();
+
+services.AddSingleton<IUsuarioRepository, UsuarioRepository>();
+services.AddSingleton<ITarefaRepository, TarefaRepository>();
+services.AddSingleton<IProjetoRepository, ProjetoRepository>();
+services.AddSingleton<IHistoricoTarefaRepository, HistoricoTarefaRepository>();
+
+services.AddSingleton<IUsuarioService, UsuarioService>();
+services.AddSingleton<ITarefaService, TarefaService>();
+services.AddSingleton<IProjetoService, ProjetoService>();
+services.AddSingleton<IHistoricoTarefaService, HistoricoTarefaService>();
+
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
 
 var app = builder.Build();
