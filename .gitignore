@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+#xunit_reports
+report/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

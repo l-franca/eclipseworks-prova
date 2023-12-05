@@ -18,28 +18,20 @@ namespace eclipseworks_teste.Services.Tests
         public void GetAllProjetosTest()
         {
             var listProjetos = projetoService.GetAllProjetos();
-
-            Assert.NotEqual(listProjetos, null);
+            Assert.Empty(listProjetos);
         }
 
         [Fact()]
         public void GetByUserIdTest()
         {
             var listProjetos = projetoService.GetByUserId(1);
-
-            Assert.NotEqual(listProjetos, null);
+            Assert.Empty(listProjetos);
         }
 
         [Fact()]
         public void AddProjetoTest()
         {
-            var projeto = new Projeto()
-            {
-                CodUsuario = 1,
-                Data = DateTime.Now,
-                Descricao = "Descrição do Projeto",
-                Titulo = "Título A"
-            };
+            var projeto = DataMock.Projetos.FirstOrDefault();
             var result = projetoService.AddProjeto(projeto);
             Assert.Equal(projeto.CodUsuario, result.CodUsuario);
             Assert.Equal(projeto.Data, result.Data);
@@ -51,7 +43,7 @@ namespace eclipseworks_teste.Services.Tests
         public void RemoveProjetoTest()
         {
             var result = projetoService.RemoveProjeto(1);
-            Assert.NotEqual(result, null);
+            Assert.Equal(result, ValidationResult.Success);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace eclipseworks_teste.Services.Tests
         public void ObterTodosTest()
         {
             var userList = usuarioService.ObterTodos();
-            Assert.NotEqual(userList, null);
+            Assert.Empty(userList);
         }
 
         [Fact()]

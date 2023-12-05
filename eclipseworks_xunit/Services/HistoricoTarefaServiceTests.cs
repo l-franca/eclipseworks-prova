@@ -14,30 +14,38 @@ namespace eclipseworks_teste.Services.Tests
     public class HistoricoTarefaServiceTests
     {
         private IHistoricoTarefaService histtarefaService;
+        private Mock<IHistoricoTarefaRepository> histtarefaRepository;
+        private Mock<IUsuarioRepository> usuarioRepository;
         public HistoricoTarefaServiceTests()
         {
-            histtarefaService = new HistoricoTarefaService(RepositoryMock.HistoricoTarefaRepositoryMock.Object, RepositoryMock.UsuarioRepositoryMock.Object);
+            histtarefaRepository = RepositoryMock.HistoricoTarefaRepositoryMock;
+            usuarioRepository = RepositoryMock.UsuarioRepositoryMock;
+            histtarefaService = new HistoricoTarefaService(histtarefaRepository.Object, usuarioRepository.Object);
         }
 
         [Fact()]
         public void ObterTodosTest()
         {
             var result = histtarefaService.ObterTodos();
-            Assert.NotEqual(result, null);
+            Assert.NotEmpty(result);
         }
 
         [Fact()]
         public void GetAllComentariosTest()
         {
-            var result = histtarefaService.GetAllComentarios(1, 4);
-            Assert.NotEqual(result, null);
+            usuarioRepository.Setup(u => u.CheckIfGerente(It.IsAny<long>())).Returns(false);
+            var result = histtarefaService.GetAllComentarios(2, 4);
+            histtarefaRepository.Verify(x=>x.GetAllComentarios(It.IsAny<long>()), Times.Never);
+            Assert.Empty(result);
         }
 
         [Fact()]
         public void GetAllUpdatesTest()
         {
+            usuarioRepository.Setup(u => u.CheckIfGerente(It.IsAny<long>())).Returns(false);
             var result = histtarefaService.GetAllUpdates(2, 6);
-            Assert.NotEqual(result, null);
+            histtarefaRepository.Verify(x => x.GetAllUpdates(It.IsAny<long>()), Times.Never);
+            Assert.Empty(result);
         }
     }
 }
