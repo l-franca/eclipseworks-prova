@@ -14,7 +14,7 @@ services:
 
   api:
     container_name: eclipseworks_app
-    image: eclipse-teste:0.1c
+    image: eclipse-teste:1.0b
     build: 
         dockerfile: Dockerfile
         context: .

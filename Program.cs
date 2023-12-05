@@ -8,7 +8,6 @@ var env = builder.Environment;
 var services = builder.Services;
 var config = builder.Configuration;
 var db = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING") ?? config.GetConnectionString("pgsql");
-var options = new DbContextOptionsBuilder<EclipseContext>();
 
 services.AddDbContextPool<EclipseContext>(opt => opt.UseNpgsql(db).EnableDetailedErrors());
 services.AddCors(o => o.AddPolicy("AllowAll", builder =>
@@ -50,6 +49,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var sv = scope.ServiceProvider;
+
+    var context = sv.GetRequiredService<EclipseContext>();
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        context.Database.Migrate();
+    }
+}
+
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 

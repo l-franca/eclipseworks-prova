@@ -18,7 +18,7 @@ namespace eclipseworks_teste.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Usuario> GetUsuarios()
+        public IEnumerable<Usuario> GetAllUsuarios()
         {
             return _service.ObterTodos();
         }
@@ -36,6 +36,4 @@ namespace eclipseworks_teste.Controllers
             return BadRequest(ModelState);
         }
     }
-
-    
 }

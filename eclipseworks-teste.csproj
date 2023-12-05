@@ -12,9 +12,13 @@
 
   <ItemGroup>
     <Compile Remove="eclipseworks_xunit\**" />
+    <Compile Remove="report\**" />
     <Content Remove="eclipseworks_xunit\**" />
+    <Content Remove="report\**" />
     <EmbeddedResource Remove="eclipseworks_xunit\**" />
+    <EmbeddedResource Remove="report\**" />
     <None Remove="eclipseworks_xunit\**" />
+    <None Remove="report\**" />
   </ItemGroup>
 
   <ItemGroup>

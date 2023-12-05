@@ -19,7 +19,7 @@ namespace eclipseworks_teste.Controllers
         }
 
         [HttpGet]
-        public IList<Tarefa> GetTarefa()
+        public IList<Tarefa> GetAllTarefa()
         {
             return _service.GetAll();
         }
@@ -58,7 +58,6 @@ namespace eclipseworks_teste.Controllers
                 }
                 return BadRequest(validations);
             }
-
             return BadRequest(ModelState);
         }
 
