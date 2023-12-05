@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using eclipseworks_teste.Repositories;
 using Moq;
 using eclipseworks_teste.Entities;
+using NuGet.Frameworks;
 
 namespace eclipseworks_teste.Services.Tests
 {
@@ -16,40 +17,27 @@ namespace eclipseworks_teste.Services.Tests
         private IUsuarioService usuarioService;
         public UsuarioServiceTests()
         {
-            var usuarioRepository = new Mock<IUsuarioRepository>();
-            usuarioRepository.Setup(u => u.CheckIfGerente(It.IsAny<long>())).Returns(true);
-            usuarioRepository.Setup(u => u.Save(It.IsAny<Usuario>()));
-
-            usuarioService = new UsuarioService(usuarioRepository.Object);
-        }
-
-        [Fact()]
-        public void UsuarioServiceTest()
-        {
-            //Assert.True(false, "This test needs an implementation");
+            usuarioService = new UsuarioService(RepositoryMock.UsuarioRepositoryMock.Object);
         }
 
         [Fact()]
         public void ObterTodosTest()
         {
-            //Assert.True(false, "This test needs an implementation");
+            var userList = usuarioService.ObterTodos();
+            Assert.NotEqual(userList, null);
         }
 
         [Fact()]
         public void CheckIfGerenteTest()
         {
-
-            //Assert.True(false, "This test needs an implementation");
+            var user = usuarioService.CheckIfGerente(1);
+            Assert.True(user);
         }
 
         [Fact()]
         public void AddUsuarioTest()
         {
-            var user = new Usuario()
-            {
-                Nome = "Elias",
-                Cargo = CargoUsuario.Gerente
-            };
+            var user = DataMock.Usuarios.FirstOrDefault();
             var retUser = usuarioService.AddUsuario(user);
             Assert.Equal(user.Nome, retUser.Nome);
             Assert.Equal(user.Cargo, retUser.Cargo);

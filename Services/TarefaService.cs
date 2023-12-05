@@ -9,13 +9,13 @@ namespace eclipseworks_teste.Services
 {
     public interface ITarefaService
     {
-        void AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario);
+        ValidationResult AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario);
         ValidationResult AddTarefa(Tarefa tarefa);
         Tarefa EditTarefa(TarefaVM tarefaVM, long codTarefa, long codUsuario);
         IList<Tarefa> GetAll();
         IList<Tarefa> GetAllByProjectId(long codProjeto);
         IList<Tarefa> GetTarefasPorUsuario30dias(long usuarioId);
-        void RemoveTarefa(long codTarefa);
+        ValidationResult RemoveTarefa(long codTarefa);
     }
 
     public class TarefaService : ITarefaService
@@ -44,7 +44,11 @@ namespace eclipseworks_teste.Services
             return new List<Tarefa>();
         }
 
-        public void RemoveTarefa(long codTarefa) { _repository.RemoveById(codTarefa); }
+        public ValidationResult RemoveTarefa(long codTarefa) {
+            _repository.RemoveById(codTarefa);
+            return ValidationResult.Success;
+
+        }
 
         public ValidationResult AddTarefa(Tarefa tarefa)
         {
@@ -61,7 +65,7 @@ namespace eclipseworks_teste.Services
             return new ValidationResult("Projeto já possui 20 tarefas!");
         }
 
-        public void AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario)
+        public ValidationResult AddComentario(ComentarioVM comentarioVM, long codTarefa, long codUsuario)
         {
             _histRepository.Save(new HistoricoTarefa
             {
@@ -71,6 +75,7 @@ namespace eclipseworks_teste.Services
                 DataModificacao = DateTime.Now,
                 StatusHistorico = StatusHistorico.Comentario
             });
+            return ValidationResult.Success;
         }
 
         public Tarefa EditTarefa(TarefaVM tarefaVM, long codTarefa, long codUsuario)
